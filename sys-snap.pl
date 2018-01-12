@@ -123,7 +123,8 @@ usage();
 exit;
 
 sub snap_network {
-    my %opt          = %{ shift @_ };
+    my ($optref)     = @_;
+    my %opt          = %$optref;
     my $time1        = $opt{'time1'};
     my $time2        = $opt{'time2'};
     my $snapshot_dir = $opt{'dir'};
@@ -143,8 +144,9 @@ sub snap_network {
     $line_length = $line_length - 16;
 
     module_sanity_check();
-    eval("use Time::Piece;");
-    if ($@) {
+    eval {
+        use Time::Piece;
+    } or do {
         print "***\nCould not install Time::Piece - try manually installing.\n***\n";
         exit;
     }
@@ -221,8 +223,12 @@ ENDTXT
 }
 
 sub snap_io {
-    eval("use Time::Piece;");
-    my %opt          = %{ shift @_ };
+    eval {
+        use Time::Piece;
+    }
+
+    my ($optref)     = @_;
+    my %opt          = %$optref;
     my $time1        = $opt{'time1'};
     my $time2        = $opt{'time2'};
     my $interval     = $opt{'interval'};
@@ -269,8 +275,11 @@ sub snap_io {
 }
 
 sub loadavg {
-    eval("use Time::Piece;");
-    my %opt          = %{ shift @_ };
+    eval {
+        use Time::Piece;
+    }
+    my ($optref)     = @_;
+    my %opt          = %$optref;
     my $time1        = $opt{'time1'};
     my $time2        = $opt{'time2'};
     my $interval     = $opt{'interval'};
@@ -330,10 +339,10 @@ sub stop_syssnap {
         print "Stop this process (y/n)?:";
 
         my $choice = "0";
-        $choice = <STDIN>;
+        $choice = <>;
         while ( $choice !~ /[yn]/i ) {
             print "Stop this process (y/n)?:";
-            $choice = <STDIN>;
+            $choice = <>;
             chomp($choice);
         }
         if ( $choice =~ /[y]/i ) {
@@ -436,7 +445,8 @@ sub parse_check_time {
 }
 
 sub snap_print_range {
-    my %opt          = %{ shift @_ };
+    my ($optref)     = @_;
+    my %opt          = %$optref;
     my $time1        = $opt{'time1'};
     my $time2        = $opt{'time2'};
     my $snapshot_dir = $opt{'dir'};
@@ -458,8 +468,9 @@ sub snap_print_range {
     if ( !defined $time1 || !defined $time2 ) { print "Need 2 parameters, \"./snap-print start-time end-time\"\n"; exit; }
 
     module_sanity_check();
-    eval("use Time::Piece;");
-    if ($@) {
+    eval {
+        use Time::Piece;
+    } or do {
         print "***\nCould not install Time::Piece - try manually installing.\n***\n";
         exit;
     }
@@ -675,10 +686,10 @@ sub run_install {
     else {
         print "Start sys-snap logging to '/root/system-snapshot/' (y/n)?:";
         my $choice = "0";
-        $choice = <STDIN>;
+        $choice = <>;
         while ( $choice !~ /[yn]/i ) {
             print "Start sys-snap logging to '/root/system-snapshot/' (y/n)?:";
-            $choice = <STDIN>;
+            $choice = <>;
             chomp($choice);
         }
         if ( $choice =~ /[y]/i ) {
@@ -738,8 +749,8 @@ sub run_install {
 
     # try to split process into background
     chdir '/' or die "Can't chdir to /: $!";
-    open STDIN,  '/dev/null'  or die "Can't read /dev/null: $!";
-    open STDOUT, '>/dev/null' or die "Can't write to /dev/null: $!";
+    open (STDIN, '<', '/dev/null') or die "Can't read /dev/null: $!";
+    open (STDOUT, '>', '/dev/null') or die "Can't write to /dev/null: $!";
     defined( my $pid = fork ) or die "Can't fork: $!";
     exit if $pid;
     setsid or die "Can't start a new session: $!";
@@ -823,12 +834,14 @@ sub run_install {
 }
 
 sub module_sanity_check {
-    eval("use Time::Piece;");
+    eval {
+        use Time::Piece;
+    };
     if ($@) {
         print "WARNING: Perl Module Time::Piece.pm not installed!\n";
         print "Would you like sys-snap to attempt to install this moduel(y/n):";
 
-        my $choice = <STDIN>;
+        my $choice = <>;
         if ( $choice =~ /yes|y/i ) {
             print "Installing now - Please stand by.\n";
             system("cpan -i Time::Piece");
