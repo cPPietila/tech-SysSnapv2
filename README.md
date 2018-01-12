@@ -1,6 +1,6 @@
 # Sys-Snap v2
 
-##Script details
+## Script details
 
 This repo is managed by cPanel. Please submit all bugs and feature requests via email, or submit a pull request via GitHub. 
 
@@ -11,7 +11,7 @@ This repo is managed by cPanel. Please submit all bugs and feature requests via 
 
 ## Why sys-snap?
 
-Resource shortages can feel overwhelming and  impossible to track down without adequate data to diagnose the problem. Servers inevitably have problems when their sys-admins are not watching. While the (Daily Process Log)[http://documentation.cpanel.net/display/ALD/Daily+Process+Log] in WHM can be very helpful in these situations, sometimes more information is needed than WHM can provide.
+Resource shortages can feel overwhelming and impossible to track down without adequate data to diagnose the problem. Servers inevitably have problems when their sys-admins are not watching. While the [Daily Process Log](http://documentation.cpanel.net/display/ALD/Daily+Process+Log) in WHM can be very helpful in these situations, sometimes more information is needed than WHM can provide.
 
 Sys-snap is designed to help you see what is causing the resource shortages, whether CPU or Memory related, even when no one is looking. 
 
@@ -97,9 +97,7 @@ If the load average of your server is larger than the number of processors, load
 
 One utility that can be used in tandem with sys-snap to help you track and diagnose instability is called sar. To verify that the sysstat package is installed, use the command below. Please note: sysstat will only begin recording information after it is installed, and cannot provide insight for a server before the package was installed.
 
-```
-yum install -y sysstat
-```
+`yum install -y sysstat`
 
 Using various flags you can display different information that has been recorded about your server’s state. In diagnosing instability, or resource shortages, using the -q and -r flags will likely be most helpful to you. Here is a small piece of output from the `sar -q` command. The 'ldavg' is the load average. The 'ldavg-#' is the time range for the load average. The three rightmost columns represent the 1, 5, and 15 minutes load averages for the time listed in the leftmost column:
 
@@ -225,7 +223,7 @@ C: 0.00 proc: /usr/bin/ruby /usr/bin/mongrel_rails start -p 12008 -d -e producti
 
 Based on that output, the next step would be to investigate the '/home/eve/public\_html/website.com/script.php' script. This could be done by reading the script and checking the '/home/eve/access-logs/' logs to see what the script is doing. Many times there will be several processes and users that will need to be investigated. If a user is causing sever load, it might help to suspend them while the system administrator investigates the issue. If you have CloudLinux, the LVE manager could limit their resources and help increase server stability.
 
-(CloudLinux LVE Manager Documentation)[http://docs.cloudlinux.com/cpanel\_lve\_manager.html]
+[CloudLinux LVE Manager Documentation](http://docs.cloudlinux.com/cpanel\_lve\_manager.html)
 
 If most of the users have the same resource usage but the server has high load, it’s time to think about upgrading the server hardware or moving some users to a different server.
 
@@ -235,9 +233,7 @@ If most of the users have the same resource usage but the server has high load, 
 
 If you want to easily run sys-snap from any directory, add this alias to your /etc/bashrc file:
 
-```
-alias syssnap="/root/sys-snap.pl"
-```
+`alias syssnap="/root/sys-snap.pl"`
 
 #### Print only CPU scores
 
