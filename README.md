@@ -223,7 +223,7 @@ C: 0.00 proc: /usr/bin/ruby /usr/bin/mongrel_rails start -p 12008 -d -e producti
 
 Based on that output, the next step would be to investigate the '/home/eve/public\_html/website.com/script.php' script. This could be done by reading the script and checking the '/home/eve/access-logs/' logs to see what the script is doing. Many times there will be several processes and users that will need to be investigated. If a user is causing sever load, it might help to suspend them while the system administrator investigates the issue. If you have CloudLinux, the LVE manager could limit their resources and help increase server stability.
 
-[CloudLinux LVE Manager Documentation](http://docs.cloudlinux.com/cpanel\_lve\_manager.html)
+[CloudLinux LVE Manager Documentation](https://docs.cloudlinux.com/index.html?cpanel_lve_manager.html)
 
 If most of the users have the same resource usage but the server has high load, it’s time to think about upgrading the server hardware or moving some users to a different server.
 
