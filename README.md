@@ -227,7 +227,7 @@ Based on that output, the next step would be to investigate the '/home/eve/publi
 
 If most of the users have the same resource usage but the server has high load, it’s time to think about upgrading the server hardware or moving some users to a different server.
 
-##Advanced uses and examples
+## Advanced uses and examples
 
 #### Add an alias for quick access
 
