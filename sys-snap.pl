@@ -88,6 +88,7 @@ if (@ARGV < 2) {
 }
 elsif(@ARGV > 3) {
     print "Too many unknown parameters\n";
+    usage();
     exit;
 }
 elsif (@ARGV == 2){
